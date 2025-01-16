@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat</title>
+    
+    <link href="{% static 'chat/styles.css' %}" rel="stylesheet">
+    {% block extra_head %}
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'chat:index' %}">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Main content goes here -->
+        {% endblock %}
+    </main>
+
+    
+
+    <!-- Add JavaScript files -->
+    <script src="{% static 'chat/script.js' %}"></script>
+    {% block extra_scripts %}
+    {% endblock %}
+</body>
+</html>
