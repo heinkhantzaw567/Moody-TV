@@ -1,0 +1,96 @@
+{% extends "chat/layout.html" %}
+
+{% block title %}Movie Recommation {% endblock %}
+
+{% block display %}
+<style>
+    .body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color:#5E565A;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .poster-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .poster {
+        width: 300px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+        text-align: center;
+        background-color: #909CC2 ;
+    }
+
+    .poster img {
+        width: 100%;
+        height: auto;
+    }
+
+    .poster .details {
+        padding: 20px;
+    }
+
+    .poster .details h1 {
+        margin: 0;
+        font-size: 20px;
+        color: #0E1C36;
+    }
+
+    .poster .details p {
+        margin: 10px 0;
+        font-size: 14px;
+        color: #0E1C36;
+    }
+
+    .poster .details .release-date {
+        font-size: 12px;
+        color: #0E1C36;
+    }
+
+    @media (max-width: 768px) {
+        .poster {
+            width: 100%;
+            max-width: 300px;
+        }
+    }
+</style>
+<div class="body">
+    <div class="poster-container">
+        <div class="poster">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBAs2ZOyKXKTPk7A_-ztSv4AsTb8yMvdc8Ig&s" alt="Movie Poster 1">
+            <div class="details">
+                <h1>Movie Title 1</h1>
+                <p>"An epic journey of courage and discovery."</p>
+                <p class="release-date">Release Date: January 25, 2025</p>
+            </div>
+        </div>
+        <div class="poster">
+            <img src="https://rukminim2.flixcart.com/image/850/1000/jqwny4w0/poster/s/v/u/medium-spider-man-11-spider-man-poster-for-room-office-13-inch-x-original-imafctjenprfatgh.jpeg?q=90&crop=false" alt="Movie Poster 2">
+            <div class="details">
+                <h1>Movie Title 2</h1>
+                <p>"A thrilling adventure like no other."</p>
+                <p class="release-date">Release Date: February 10, 2025</p>
+            </div>
+        </div>
+        <div class="poster">
+            <img src="https://c8.alamy.com/comp/E5MREJ/spider-man-tobey-maguire-2002-c-columbiacourtesy-everett-collection-E5MREJ.jpg" alt="Movie Poster 3">
+            <div class="details">
+                <h1>Movie Title 3</h1>
+                <p>"A tale of love and redemption."</p>
+                <p class="release-date">Release Date: March 5, 2025</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
