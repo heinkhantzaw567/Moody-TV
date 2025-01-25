@@ -9,6 +9,10 @@ urlpatterns = [
     path("login/", views.login_view, name='login'),
     path("home/", views.home, name='home'),
     path("logout/", views.logout_view, name='logout'),
-    path("display/",views.display, name="display")
+    path("display/",views.display, name="display"),
+    path("watchlist", views.watchlist, name="watchlist"),
+    #
+    path("get-movie/<str:movie_name>/", views.apirequest, name="api")
+
 
 ]

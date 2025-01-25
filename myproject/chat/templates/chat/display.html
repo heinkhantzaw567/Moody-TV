@@ -1,9 +1,133 @@
 {% extends "chat/layout.html" %}
-
+{% load static %}
 {% block title %}Movie Recommation {% endblock %}
 
 {% block display %}
 <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .poster-detail {
+      width: 100%;
+      height: auto;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .title {
+      font-size: 2em;
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    .details {
+      margin-bottom: 20px;
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    .details span {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .description {
+      line-height: 1.6;
+      color: #444;
+    }
+
+    .cta {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .cta a {
+      text-decoration: none;
+      background: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    .cta a:hover {
+      background: #0056b3;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .container {
+        padding: 10px;
+      }
+
+      .content {
+        padding: 10px;
+      }
+
+      .title {
+        font-size: 1.5em;
+      }
+
+      .details {
+        font-size: 0.8em;
+      }
+
+      .cta a {
+        padding: 8px 16px;
+        font-size: 0.9em;
+      }
+    }
+    
+    .trailer-button {
+            
+            
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .trailer-button:hover {
+            background-color: #0056b3;
+        }
+        .trailer-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 320px;
+            height: 180px;
+            display: none;
+            background-color: #000;
+            border: 2px solid #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .trailer-container iframe {
+            width: 100%;
+            height: 100%;
+        }
+        .close-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 25px;
+        }
     .body {
         margin: 0;
         font-family: Arial, sans-serif;
@@ -65,32 +189,56 @@
         }
     }
 </style>
-<div class="body">
-    <div class="poster-container">
-        <div class="poster">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBAs2ZOyKXKTPk7A_-ztSv4AsTb8yMvdc8Ig&s" alt="Movie Poster 1">
-            <div class="details">
-                <h1>Movie Title 1</h1>
-                <p>"An epic journey of courage and discovery."</p>
-                <p class="release-date">Release Date: January 25, 2025</p>
-            </div>
-        </div>
-        <div class="poster">
-            <img src="https://rukminim2.flixcart.com/image/850/1000/jqwny4w0/poster/s/v/u/medium-spider-man-11-spider-man-poster-for-room-office-13-inch-x-original-imafctjenprfatgh.jpeg?q=90&crop=false" alt="Movie Poster 2">
-            <div class="details">
-                <h1>Movie Title 2</h1>
-                <p>"A thrilling adventure like no other."</p>
-                <p class="release-date">Release Date: February 10, 2025</p>
-            </div>
-        </div>
-        <div class="poster">
-            <img src="https://c8.alamy.com/comp/E5MREJ/spider-man-tobey-maguire-2002-c-columbiacourtesy-everett-collection-E5MREJ.jpg" alt="Movie Poster 3">
-            <div class="details">
-                <h1>Movie Title 3</h1>
-                <p>"A tale of love and redemption."</p>
-                <p class="release-date">Release Date: March 5, 2025</p>
-            </div>
-        </div>
-    </div>
+<div class="trailer-container" id="trailerContainer">
+    <button class="close-button" onclick="hideTrailer()">×</button>
+    <iframe 
+        id="trailerIframe"
+        src="" 
+        frameborder="0" 
+        allow="autoplay; encrypted-media" 
+        allowfullscreen>
+    </iframe>
 </div>
+
+<button id="backButton" style="display: none;">Back</button>
+<div class="body">
+        <div class="poster-container">
+            {% for movie in movies %}
+            <div class="poster">
+                <img src="{{ movie.Poster }}" alt="Movie Poster">
+                <div class="details">
+                    <h1>{{ movie.Title }}</h1>
+                    <p>{{ movie.Genre }}</p> 
+                    <p class="release-date">{{ movie.Released }}</p>
+                <!-- <p>{{ movie.youtubeurl.0 }}</p> -->
+                <button class="trailer-button" onclick="showTrailer('{{ movie.youtubeurl.0 }}')">Watch Trailer</button>
+                <button class="watchlistbutton" data-movie="{{ movie.Title}}">Watchlist</button>
+            </div>
+        </div>
+        
+            {% endfor %}
+        </div>
+    
+   
+</div>
+<div class ="poster-hein">
+
+</div>
+
+<script>
+    function showTrailer(url) {
+        const trailerContainer = document.getElementById('trailerContainer');
+        const trailerIframe = document.getElementById('trailerIframe');
+        trailerIframe.src = `${url}`;
+        trailerContainer.style.display = 'block';
+    }
+
+    function hideTrailer() {
+        const trailerContainer = document.getElementById('trailerContainer');
+        const trailerIframe = document.getElementById('trailerIframe');
+        trailerContainer.style.display = 'none';
+        trailerIframe.src = ''; // Stop video playback
+    }
+</script>
+
 {% endblock %}

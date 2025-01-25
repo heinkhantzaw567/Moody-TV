@@ -127,3 +127,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 OMDB_API_KEY ='5c56edd2'
+
+from decouple import config
+
+SECRET_KEY = config('GPTAPI')
+API_KEY = config('ombl')
+YOUTUBE_API = config('youtube_API_key')
+
