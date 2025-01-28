@@ -1,0 +1,281 @@
+{% extends "chat/layout.html" %}
+{% load static %}
+{% block title %}Movie Recommation {% endblock %}
+
+{% block display %}
+<style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .poster-detail {
+      width: 100%;
+      height: auto;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .title {
+      font-size: 2em;
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    .details {
+      margin-bottom: 20px;
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    .details span {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .description {
+      line-height: 1.6;
+      color: #444;
+    }
+
+    .cta {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .cta a {
+      text-decoration: none;
+      background: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    .cta a:hover {
+      background: #0056b3;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .container {
+        padding: 10px;
+      }
+
+      .content {
+        padding: 10px;
+      }
+
+      .title {
+        font-size: 1.5em;
+      }
+
+      .details {
+        font-size: 0.8em;
+      }
+
+      .cta a {
+        padding: 8px 16px;
+        font-size: 0.9em;
+      }
+    }
+    
+    .trailer-button {
+            
+            
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .trailer-button:hover {
+            background-color: #0056b3;
+        }
+        .trailer-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 320px;
+            height: 180px;
+            display: none;
+            background-color: #000;
+            border: 2px solid #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .trailer-container iframe {
+            width: 100%;
+            height: 100%;
+        }
+        .close-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 25px;
+        }
+    .body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color:#5E565A;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .poster-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .poster {
+        width: 300px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+        text-align: center;
+        background-color: #909CC2 ;
+    }
+
+    .poster img {
+        width: 100%;
+        height: auto;
+    }
+
+    .poster .details {
+        padding: 20px;
+    }
+
+    .poster .details h1 {
+        margin: 0;
+        font-size: 20px;
+        color: #0E1C36;
+    }
+
+    .poster .details p {
+        margin: 10px 0;
+        font-size: 14px;
+        color: #0E1C36;
+    }
+
+    .poster .details .release-date {
+        font-size: 12px;
+        color: #0E1C36;
+    }
+
+    @media (max-width: 768px) {
+        .poster {
+            width: 100%;
+            max-width: 300px;
+        }
+    }
+      .floating-back {
+      position: fixed;
+      top: 70px;
+      left: 20px;
+      background-color: #ff4757;
+      color: white;
+      border: none;
+      padding: 20px;
+      font-size: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease;
+  }
+
+  .floating-back:hover {
+      transform: scale(1.1);
+  }
+  .watchlist-btn {
+    background-color: #ffcc00;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.watchlist-btn:hover {
+    background-color: #e6b800;
+}
+
+</style>
+<div class="trailer-container" id="trailerContainer">
+    <button class="close-button" onclick="hideTrailer()">×</button>
+    <iframe 
+        id="trailerIframe"
+        src="" 
+        frameborder="0" 
+        allow="autoplay; encrypted-media" 
+        allowfullscreen>
+    </iframe>
+</div>
+
+<button id="backButton" style="display: none;" class="floating-back">⮌</button>
+<div class="body">
+        <div class="poster-container">
+            {% for movie in movies %}
+            <div class="poster">
+              <div class="posterimg">
+                <img src="{{ movie.Poster }}"  alt="Movie Poster">
+              </div>
+                
+                <div class="details">
+                    <h1>{{ movie.Title }}</h1>
+                    <p>{{ movie.Genre }}</p> 
+                    <p class="release-date">{{ movie.Released }}</p>
+                <!-- <p>{{ movie.youtubeurl.0 }}</p> -->
+                <button class="trailer-button" onclick="showTrailer('{{ movie.youtubeurl.0 }}')">Watch Trailer</button>
+                <button class="watchlistbutton watchlist-btn" data-movie="{{ movie.Title }}">Watchlist</button>
+            </div>
+        </div>
+        
+            {% endfor %}
+        </div>
+    
+   
+</div>
+<div class ="poster-hein">
+
+</div>
+
+<script>
+    function showTrailer(url) {
+        const trailerContainer = document.getElementById('trailerContainer');
+        const trailerIframe = document.getElementById('trailerIframe');
+        trailerIframe.src = `${url}`;
+        trailerContainer.style.display = 'block';
+    }
+
+    function hideTrailer() {
+        const trailerContainer = document.getElementById('trailerContainer');
+        const trailerIframe = document.getElementById('trailerIframe');
+        trailerContainer.style.display = 'none';
+        trailerIframe.src = ''; // Stop video playback
+    }
+</script>
+
+{% endblock %}
