@@ -77,16 +77,7 @@ moody-tv/
 
 🔹 Get Recommendations
 
-GET /api/recommendations/?emotion=happy&genre=comedy&reason=relaxation
 
-Response:
-
-{
-  "movies": [
-    { "title": "Inside Out", "genre": "Comedy", "year": 2015 },
-    { "title": "The Grand Budapest Hotel", "genre": "Comedy", "year": 2014 }
-  ]
-}
 
 🔹 Manage Watchlist
 
