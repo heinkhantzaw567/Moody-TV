@@ -14,6 +14,18 @@ Moody TV is a movie recommendation web app that suggests movies based on the use
 
 📌 Watchlist Management – Add and remove movies from your personal watchlist.
 
+🎯 Distinctiveness and Complexity
+
+This project meets the distinctiveness and complexity requirements because:
+
+It is not a simple CRUD application; it integrates a recommendation system based on multiple user inputs (emotion, genre, and reason).
+
+The combination of Django, JavaScript, and API-based data handling adds significant depth to both the backend and frontend implementation.
+
+Dynamic UI interactions allow users to add and remove movies from their watchlist without reloading the page.
+
+The system could be extended to integrate external APIs (e.g., IMDb, TMDb) for enhanced recommendations.
+
 🛠 Tech Stack
 
 Backend: Django (Python)
@@ -47,16 +59,6 @@ python manage.py runserver
 
 Access the app at http://127.0.0.1:8000/.
 
-🔧 Usage
-
-Select your emotion, preferred genre, and reason for watching.
-
-Receive movie recommendations based on your inputs.
-
-Click Add to Watchlist to save movies.
-
-Manage your watchlist by removing unwanted movies.
-
 📂 Project Structure
 
 moody-tv/
@@ -73,19 +75,27 @@ moody-tv/
 │-- requirements.txt        # Python dependencies
 │-- README.md               # Project documentation
 
+🔧 How to Run the Application
+
+Select your emotion, preferred genre, and reason for watching.
+
+Receive movie recommendations based on your inputs.
+
+Click Add to Watchlist to save movies.
+
+Manage your watchlist by removing unwanted movies.
+
 🎯 API Endpoints
 
-🔹 Get Recommendations
 
 
+📝 Additional Information
 
-🔹 Manage Watchlist
+This project supports scalability and can be extended with user authentication, external API integrations, and advanced recommendation algorithms.
 
-Add Movie: POST /api/watchlist/
+The recommendation logic can be improved using machine learning models.
 
-View Watchlist: GET /api/watchlist/
-
-Remove Movie: DELETE /api/watchlist/<movie_name>/
+The UI follows modern, mobile-friendly design principles.
 
 🔥 Future Improvements
 
@@ -95,9 +105,9 @@ Remove Movie: DELETE /api/watchlist/<movie_name>/
 
 ✅ Dark mode UI
 
-✅ Mobile-friendly design
 
-📝 License
+
+📜 License
 
 This project is open-source under the MIT License.
 
@@ -106,6 +116,4 @@ This project is open-source under the MIT License.
 Contributions are welcome! Feel free to submit a pull request or open an issue.
 
 Made with ❤️ by Hein Khant Zaw
-
-
 
